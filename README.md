@@ -2,6 +2,8 @@
 
 ## 📌 Description
 
+The smart contract layer for AstroForge, a Web3 space-mining game. This layer handles the decentralized token economics and asset distribution linked to core gameplay states. It contains the asset token contract responsible for minting, burning, and transferring economy balances securely within the distributed network while maintaining full synchronization with the gameplay servers.
+
 ---
 
 ## 🛠️ Tech Stack
