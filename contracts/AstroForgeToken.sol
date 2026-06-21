@@ -12,10 +12,16 @@ contract AstroForgeToken is ERC20, Ownable {
     address public backendSigner;
     mapping(address => uint256) public playerNonces;
 
-    event TokensWithdrawn(address indexed player, uint256 amount, uint256 indexed nonce);
+    event TokensWithdrawn(
+        address indexed player,
+        uint256 amount,
+        uint256 indexed nonce
+    );
     event SignerUpdated(address indexed oldSigner, address indexed newSigner);
 
-    constructor(address _initialSigner) ERC20("AstroForge Ore", "ORE") Ownable(msg.sender) {
+    constructor(
+        address _initialSigner
+    ) ERC20("AstroForge Ore", "ORE") Ownable(msg.sender) {
         require(_initialSigner != address(0), "Invalid signer address");
         backendSigner = _initialSigner;
     }
@@ -31,16 +37,24 @@ contract AstroForgeToken is ERC20, Ownable {
         bytes calldata signature
     ) external {
         require(block.timestamp <= expiry, "Voucher has expired");
-        require(nonce == playerNonces[recipient], "Invalid or reuse of security nonce");
+        require(
+            nonce == playerNonces[recipient],
+            "Invalid or reuse of security nonce"
+        );
 
         bytes32 messageHash = keccak256(
             abi.encodePacked(recipient, amount, nonce, expiry, address(this))
         );
 
-        bytes32 ethSignedMessageHash = MessageHashUtils.toEthSignedMessageHash(messageHash);
+        bytes32 ethSignedMessageHash = MessageHashUtils.toEthSignedMessageHash(
+            messageHash
+        );
 
         address recoveredSigner = ethSignedMessageHash.recover(signature);
-        require(recoveredSigner == backendSigner, "Cryptographic signature mismatch. Fraud detected.");
+        require(
+            recoveredSigner == backendSigner,
+            "Cryptographic signature mismatch. Fraud detected."
+        );
 
         playerNonces[recipient] += 1;
         _mint(recipient, amount);
