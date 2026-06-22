@@ -50,14 +50,24 @@ npx hardhat compile
 pnpm hardhat compile
 ```
 
-5. **Run Local Deployment Simulation**
+5. **Start a Local Ethereum Node**
 
 ```bash
 # Using npm
-npx hardhat run scripts/deploy.ts --network hardhatMainnet
+npx hardhat node
 
 # Using pnpm
-pnpm hardhat run scripts/deploy.ts --network hardhatMainnet
+pnpm hardhat node
+```
+
+6. **Run Local Deployment Simulation**
+
+```bash
+# Using npm
+npx hardhat run scripts/deploy.ts --network localhost
+
+# Using pnpm
+pnpm hardhat run scripts/deploy.ts --network localhost
 ```
 
 ---
